@@ -1,0 +1,4 @@
+
+source1 :: FromDump(workload.pcap, MMAP true, TIMING true, STOP true);
+source1 -> ToDevice(eth7, BURST 1);
+	
