@@ -130,8 +130,7 @@ def sendWorkload(workloadFile = default_pktTmpFile, clickConfigFile = default_cl
 	subprocess.call(cmd, stderr = subprocess.PIPE, stdout=subprocess.PIPE,shell = True)
 	ftime = time.time()
 	print ("click returned.")
-	return stime, ftime
-
+	print("total time taken = ",ftime-stime)
 
 
 # pcap helpers.
