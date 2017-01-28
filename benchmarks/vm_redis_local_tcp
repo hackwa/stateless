@@ -1,0 +1,47 @@
+# Test specs:
+# 50 parallel clients
+# 3 bytes payload
+# keep alive: 1
+# redis-benchmark -t ping,set,get,incr -q 
+
+# NO PIPELINE
+PING_INLINE: 148809.53 requests per second
+PING_BULK: 149253.73 requests per second
+SET: 153139.36 requests per second
+GET: 150829.56 requests per second
+INCR: 152671.77 requests per second
+
+# PIPELINE 8 REQUESTS
+PING_INLINE: 892857.12 requests per second
+PING_BULK: 1098901.12 requests per second
+SET: 840336.12 requests per second
+GET: 1020408.19 requests per second
+INCR: 970873.81 requests per second
+
+# PIPELINE 16 REQUESTS
+PING_INLINE: 1162790.62 requests per second
+PING_BULK: 1754386.00 requests per second
+SET: 1086956.50 requests per second
+GET: 1369863.00 requests per second
+INCR: 1265822.75 requests per second
+
+# PIPELINE 32 REQUESTS
+PING_INLINE: 1333333.25 requests per second
+PING_BULK: 2222222.25 requests per second
+SET: 1250000.00 requests per second
+GET: 1612903.25 requests per second
+INCR: 1492537.25 requests per second
+
+# PIPELINE 64 REQUESTS
+PING_INLINE: 1470588.12 requests per second
+PING_BULK: 2272727.25 requests per second
+SET: 1265822.75 requests per second
+GET: 1724138.00 requests per second
+INCR: 1612903.25 requests per second
+
+# PIPELINE 128 requests
+PING_INLINE: 1492537.25 requests per second
+PING_BULK: 2380952.50 requests per second
+SET: 1234567.88 requests per second
+GET: 1724138.00 requests per second
+INCR: 1587301.50 requests per second
