@@ -1,0 +1,145 @@
+# For fair connection we limited the number of clients
+# to a single client
+# Commands used are:
+# DPDK Disabled :: redis-benchmark -t ping,set,get,incr -h 192.168.122.66 -c 1 -q
+# DPDK Enabled :: redis-benchmark -t ping,set,get,incr -h 172.16.22.22 -c 1 -q
+
+## NO PIPELINE
+
+# WITHOUT DPDK
+PING_INLINE: 26295.03 requests per second
+PING_BULK: 26968.72 requests per second
+SET: 26198.59 requests per second
+GET: 26476.04 requests per second
+INCR: 26301.95 requests per second
+
+LATENCY: 100% less than 0ms
+
+# WITH DPDK
+PING_INLINE: 42105.26 requests per second
+PING_BULK: 43215.21 requests per second
+SET: 40883.07 requests per second
+GET: 38535.64 requests per second
+INCR: 37864.45 requests per second
+
+LATENCY: 100% less than 0ms
+
+## PIPELINE 8 requests
+
+# WITHOUT DPDK
+PING_INLINE: 187265.92 requests per second
+PING_BULK: 198807.16 requests per second
+SET: 181488.20 requests per second
+GET: 189393.94 requests per second
+INCR: 184842.88 requests per second
+
+LATENCY: 100% less than 0ms
+
+# WITH DPDK
+PING_INLINE: 280112.06 requests per second
+PING_BULK: 303030.28 requests per second
+SET: 264550.28 requests per second
+GET: 280112.06 requests per second
+INCR: 273972.59 requests per second
+
+LATENCY: 100% less than 0ms
+
+## PIPELINE 16 requests
+
+# WITHOUT DPDK
+PING_INLINE: 292397.66 requests per second
+PING_BULK: 325732.88 requests per second
+SET: 308641.97 requests per second
+GET: 333333.31 requests per second
+INCR: 325732.88 requests per second
+
+LATENCY: 100% less than 0ms
+
+# WITH DPDK
+PING_INLINE: 460829.50 requests per second
+PING_BULK: 526315.81 requests per second
+SET: 429184.56 requests per second
+GET: 473933.66 requests per second
+INCR: 456621.00 requests per second
+
+LATENCY: 100% less than 0ms
+
+## PIPELINE 32 requests
+
+# WITHOUT DPDK
+PING_INLINE: 523560.22 requests per second
+PING_BULK: 632911.38 requests per second
+SET: 495049.50 requests per second
+GET: 561797.75 requests per second
+INCR: 531914.94 requests per second
+
+LATENCY: 100% less than 0ms
+
+# WITH DPDK
+PING_INLINE: 694444.50 requests per second
+PING_BULK: 862069.00 requests per second
+SET: 621118.00 requests per second
+GET: 729927.06 requests per second
+INCR: 699300.69 requests per second
+
+LATENCY: 100% less than 0ms
+
+## PIPELINE 64 requests
+
+# WITHOUT DPDK
+PING_INLINE: 763358.81 requests per second
+PING_BULK: 990099.00 requests per second
+SET: 680272.12 requests per second
+GET: 746268.62 requests per second
+INCR: 740740.69 requests per second
+
+LATENCY: 100% less than 0ms
+
+# WITH DPDK
+PING_INLINE: 943396.25 requests per second
+PING_BULK: 1282051.25 requests per second
+SET: 800000.00 requests per second
+GET: 970873.81 requests per second
+INCR: 900900.88 requests per second
+
+LATENCY: 100% less than 0ms
+
+## PIPELINE 128 requests
+
+# WITHOUT DPDK
+PING_INLINE: 990099.00 requests per second
+PING_BULK: 1351351.38 requests per second
+SET: 840336.12 requests per second
+GET: 1041666.69 requests per second
+INCR: 970873.81 requests per second
+
+LATENCY: 100% less than 0ms
+
+# WITH DPDK
+PING_INLINE: 1123595.50 requests per second
+PING_BULK: 1562499.88 requests per second
+SET: 925925.88 requests per second
+GET: 1162790.62 requests per second
+INCR: 1075268.75 requests per second
+
+LATENCY : 100% less than 0ms
+
+## PIPELINE 256 requests
+
+# WITHOUT DPDK:
+PING_INLINE: 1136363.62 requests per second
+PING_BULK: 1666666.75 requests per second
+SET: 917431.19 requests per second
+GET: 1162790.62 requests per second
+INCR: 1063829.88 requests per second
+
+LATENCY : 100% less than 0ms
+
+# WITH DPDK:
+PING_INLINE: 1234567.88 requests per second
+PING_BULK: 1818181.88 requests per second
+SET: 943396.25 requests per second
+GET: 1219512.12 requests per second
+INCR: 1098901.12 requests per second
+
+LATENCY : 100% less than 0ms
