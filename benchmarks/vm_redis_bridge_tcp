@@ -1,0 +1,66 @@
+# Test specs:
+# 50 parallel clients
+# 3 bytes payload
+# keep alive: 1
+# redis-benchmark -t ping,set,get,incr -q -h `hostname` -p 6379
+# Latency is latency occured for majority of requests
+
+# NO PIPELINE
+PING_INLINE: 136612.02 requests per second
+PING_BULK: 138888.89 requests per second
+SET: 140252.45 requests per second
+GET: 139664.80 requests per second
+INCR: 142653.36 requests per second
+
+LATENCY: 100% completed in less than 1ms
+
+# PIPELINE 8 REQUESTS
+PING_INLINE: 769230.81 requests per second
+PING_BULK: 862069.00 requests per second
+SET: 714285.69 requests per second
+GET: 826446.31 requests per second
+INCR: 793650.75 requests per second
+
+LATENCY: 100% completed in less than 1ms
+
+# PIPELINE 16 REQUESTS
+PING_INLINE: 1041666.69 requests per second
+PING_BULK: 1449275.38 requests per second
+SET: 961538.44 requests per second
+GET: 1190476.25 requests per second
+INCR: 1086956.50 requests per second
+
+LATENCY: 100% completed in less than 1ms
+
+# PIPELINE 32 REQUESTS
+PING_INLINE: 1234567.88 requests per second
+PING_BULK: 1960784.38 requests per second
+SET: 1123595.50 requests per second
+GET: 1470588.12 requests per second
+INCR: 1351351.38 requests per second
+
+LATENCY: SET 99% in 1-2ms 
+         GET 65% less than 1ms rest 1-2ms
+         INCR 32% less than 1ms rest 1-2ms
+
+# PIPELINE 64 REQUESTS
+PING_INLINE: 1388889.00 requests per second
+PING_BULK: 2222222.25 requests per second
+SET: 1123595.50 requests per second
+GET: 1538461.62 requests per second
+INCR: 1369863.00 requests per second
+
+LATENCY: SET 98% in 2-3ms
+         GET 99% in 1-2ms
+         INCR 39% less than 2ms rest 2-3ms
+
+# PIPELINE 128 REQUESTS
+PING_INLINE: 1470588.12 requests per second
+PING_BULK: 2325581.25 requests per second
+SET: 1176470.62 requests per second
+GET: 1562499.88 requests per second
+INCR: 1408450.62 requests per second
+
+LATENCY: SET 97% in 4-6ms
+         GET 95% in 3-5ms
+         INCR 97% in 3-5ms
