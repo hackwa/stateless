@@ -4,6 +4,8 @@
 # keep alive: 1
 # redis-benchmark -t ping,set,get,incr -q -h `hostname` -p 6379
 # Latency is latency occured for majority of requests
+# Latency and performance on DPDK enabled ovs interface was nearly identical
+# apart from a few cases
 
 # NO PIPELINE
 PING_INLINE: 136612.02 requests per second
@@ -42,6 +44,9 @@ INCR: 1351351.38 requests per second
 LATENCY: SET 99% in 1-2ms 
          GET 65% less than 1ms rest 1-2ms
          INCR 32% less than 1ms rest 1-2ms
+DPDK:    INCR 100% less than 1ms
+         SET 99% in 1-2ms 
+         GET 40% less than 1ms rest 1-2ms
 
 # PIPELINE 64 REQUESTS
 PING_INLINE: 1388889.00 requests per second
