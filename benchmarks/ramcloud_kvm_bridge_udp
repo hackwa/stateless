@@ -1,0 +1,119 @@
+basic.read100         42.4 us     read random 100B object (30B key) median
+basic.read100.min     37.5 us     read random 100B object (30B key) minimum
+basic.read100.9       47.7 us     read random 100B object (30B key) 90%
+basic.read100.99      51.5 us     read random 100B object (30B key) 99%
+basic.read100.999     59.2 us     read random 100B object (30B key) 99.9%
+basic.readBw100        2.2 MB/s   bandwidth reading 100B objects (30B key)
+basic.read1K          40.7 us     read random 1KB object (30B key) median
+basic.read1K.min      35.3 us     read random 1KB object (30B key) minimum
+basic.read1K.9        42.6 us     read random 1KB object (30B key) 90%
+basic.read1K.99       49.4 us     read random 1KB object (30B key) 99%
+basic.read1K.999      56.2 us     read random 1KB object (30B key) 99.9%
+basic.readBw1K        23.2 MB/s   bandwidth reading 1KB objects (30B key)
+basic.read10K         95.1 us     read random 10KB object (30B key) median
+basic.read10K.min     79.8 us     read random 10KB object (30B key) minimum
+basic.read10K.9      103.5 us     read random 10KB object (30B key) 90%
+basic.read10K.99     113.2 us     read random 10KB object (30B key) 99%
+basic.read10K.999    206.2 us     read random 10KB object (30B key) 99.9%
+basic.readBw10K       96.9 MB/s   bandwidth reading 10KB objects (30B key)
+basic.read100K       496.4 us     read random 100KB object (30B key) median
+basic.read100K.min   344.4 us     read random 100KB object (30B key) minimum
+basic.read100K.9     522.3 us     read random 100KB object (30B key) 90%
+basic.read100K.99    539.7 us     read random 100KB object (30B key) 99%
+basic.read100K.999     4.5 ms     read random 100KB object (30B key) 99.9%
+basic.readBw100K     189.0 MB/s   bandwidth reading 100KB objects (30B key)
+basic.read1M           4.8 ms     read random 1MB object (30B key) median
+basic.read1M.min       3.6 ms     read random 1MB object (30B key) minimum
+basic.read1M.9         5.4 ms     read random 1MB object (30B key) 90%
+basic.read1M.99        8.1 ms     read random 1MB object (30B key) 99%
+basic.readBw1M       198.3 MB/s   bandwidth reading 1MB objects (30B key)
+basic.write100        42.6 us     write random 100B object (30B key) median
+basic.write100.min    39.7 us     write random 100B object (30B key) minimum
+basic.write100.9      44.3 us     write random 100B object (30B key) 90%
+basic.write100.99     51.0 us     write random 100B object (30B key) 99%
+basic.write100.999    57.4 us     write random 100B object (30B key) 99.9%
+basic.writeBw100       2.2 MB/s   bandwidth writing 100B objects (30B key)
+basic.write1K         42.5 us     write random 1KB object (30B key) median
+basic.write1K.min     37.1 us     write random 1KB object (30B key) minimum
+basic.write1K.9       44.5 us     write random 1KB object (30B key) 90%
+basic.write1K.99      51.3 us     write random 1KB object (30B key) 99%
+basic.write1K.999     63.9 us     write random 1KB object (30B key) 99.9%
+basic.writeBw1K       22.3 MB/s   bandwidth writing 1KB objects (30B key)
+basic.write10K        99.6 us     write random 10KB object (30B key) median
+basic.write10K.min    83.4 us     write random 10KB object (30B key) minimum
+basic.write10K.9     109.1 us     write random 10KB object (30B key) 90%
+basic.write10K.99    127.4 us     write random 10KB object (30B key) 99%
+basic.write10K.999     2.0 ms     write random 10KB object (30B key) 99.9%
+basic.writeBw10K      89.4 MB/s   bandwidth writing 10KB objects (30B key)
+basic.write100K      470.8 us     write random 100KB object (30B key) median
+basic.write100K.min  379.5 us     write random 100KB object (30B key) minimum
+basic.write100K.9    575.2 us     write random 100KB object (30B key) 90%
+basic.write100K.99   634.4 us     write random 100KB object (30B key) 99%
+basic.write100K.999   10.6 ms     write random 100KB object (30B key) 99.9%
+basic.writeBw100K    182.9 MB/s   bandwidth writing 100KB objects (30B key)
+basic.write1M          4.3 ms     write random 1MB object (30B key) median
+basic.write1M.min      3.9 ms     write random 1MB object (30B key) minimum
+basic.write1M.9        6.2 ms     write random 1MB object (30B key) 90%
+basic.write1M.99       9.3 ms     write random 1MB object (30B key) 99%                                                                                                                               [97/1091]
+basic.writeBw1M      189.7 MB/s   bandwidth writing 1MB objects (30B key)
+broadcast             43.5 us     broadcast message to 0 slaves
+1486793548.032224174 ClusterPerf.cc:2523 in echo_basic NOTICE[1]: Choose server 2 at basic+udp:host=192.168.122.158,port=9999 as the receiver
+1486793548.032233173 ClusterPerf.cc:2533 in echo_basic NOTICE[1]: Starting echo test for 100-byte reply messages
+1486793550.045619654 ClusterPerf.cc:1119 in echoMessages NOTICE[1]: time expired after 45930 iterations
+1486793550.048229497 ClusterPerf.cc:2533 in echo_basic NOTICE[1]: Starting echo test for 1000-byte reply messages
+1486793552.050585718 ClusterPerf.cc:1119 in echoMessages NOTICE[1]: time expired after 45588 iterations
+1486793552.053069355 ClusterPerf.cc:2533 in echo_basic NOTICE[1]: Starting echo test for 10000-byte reply messages
+1486793554.055595988 ClusterPerf.cc:1119 in echoMessages NOTICE[1]: time expired after 21360 iterations
+1486793554.055595988 UdpDriver.cc:322 in readerThreadMain NOTICE[2]: (6 duplicates of this message were skipped) dispatch thread not keeping up with UdpDriver packet reader
+1486793554.059883550 ClusterPerf.cc:2533 in echo_basic NOTICE[1]: Starting echo test for 100000-byte reply messages
+1486793556.064758223 ClusterPerf.cc:1119 in echoMessages NOTICE[1]: time expired after 4071 iterations
+1486793556.066878385 ClusterPerf.cc:2533 in echo_basic NOTICE[1]: Starting echo test for 1000000-byte reply messages
+1486793558.075320034 ClusterPerf.cc:1119 in echoMessages NOTICE[1]: time expired after 406 iterations
+echo100               43.0 us     send 30B message, receive 100B message median
+echo100.min           37.7 us     send 30B message, receive 100B message minimum
+echo100.9             44.1 us     send 30B message, receive 100B message 90%
+echo100.99            51.1 us     send 30B message, receive 100B message 99%
+echo100.999           72.7 us     send 30B message, receive 100B message 99.9%
+echoBw100              2.2 MB/s   bandwidth receiving 100B messages
+echo1K                43.8 us     send 30B message, receive 1KB message median
+echo1K.min            38.1 us     send 30B message, receive 1KB message minimum
+echo1K.9              44.7 us     send 30B message, receive 1KB message 90%
+echo1K.99             51.5 us     send 30B message, receive 1KB message 99%
+echo1K.999            72.9 us     send 30B message, receive 1KB message 99.9%
+echoBw1K              21.7 MB/s   bandwidth receiving 1KB messages
+echo10K               90.7 us     send 30B message, receive 10KB message median
+echo10K.min           76.1 us     send 30B message, receive 10KB message minimum
+echo10K.9             98.5 us     send 30B message, receive 10KB message 90%
+echo10K.99           106.7 us     send 30B message, receive 10KB message 99%
+echo10K.999          142.9 us     send 30B message, receive 10KB message 99.9%
+echoBw10K            101.9 MB/s   bandwidth receiving 10KB messages
+echo100K             505.1 us     send 30B message, receive 100KB message median
+echo100K.min         328.9 us     send 30B message, receive 100KB message minimum
+echo100K.9           513.3 us     send 30B message, receive 100KB message 90%
+echo100K.99          520.6 us     send 30B message, receive 100KB message 99%
+echo100K.999         558.0 us     send 30B message, receive 100KB message 99.9%
+echoBw100K           194.1 MB/s   bandwidth receiving 100KB messages
+echo1M                 4.9 ms     send 30B message, receive 1MB message median
+echo1M.min             3.9 ms     send 30B message, receive 1MB message minimum
+echo1M.9               4.9 ms     send 30B message, receive 1MB message 90%
+echo1M.99              8.8 ms     send 30B message, receive 1MB message 99%
+echoBw1M             193.2 MB/s   bandwidth receiving 1MB messages
+1486793558.082728901 ClusterPerf.cc:2606 in echo_incast NOTICE[1]: Choose server 2 at basic+udp:host=192.168.122.158,port=9999 as the receiver
+1486793558.082738748 ClusterPerf.cc:2619 in echo_incast NOTICE[1]: Send 30B messages, receive 30B messages
+1486793588.087523518 ClusterPerf.cc:1119 in echoMessages NOTICE[1]: time expired after 729711 iterations
+1486793588.087523518 UdpDriver.cc:322 in readerThreadMain NOTICE[2]: (41063 duplicates of this message were skipped) dispatch thread not keeping up with UdpDriver packet reader
+echo                  40.0 us     send 30B message, receive 30B message median
+echo.min              34.3 us     send 30B message, receive 30B message minimum
+echo.9                43.4 us     send 30B message, receive 30B message 90%
+echo.99               48.6 us     send 30B message, receive 30B message 99%
+echo.999              56.6 us     send 30B message, receive 30B message 99.9%
+sendBw               712.8 KB/s   bandwidth sending 30B messages
+recvBw               712.8 KB/s   bandwidth receiving 30B messages
+#       n       write latency(us)   overwrite latency(us)         hash lookup(us)         lookup+read(us)         IndexLookup(us)   IndexLookup overhead
+#--------------------------------------------------------------------------------------------------------------------------------------------------------
+        1      84.4/  88.9/  93.4      87.1/  91.9/  96.4      40.0/  42.7/  44.5      82.0/  85.3/  89.1      82.8/  85.9/  89.7     0.82/  0.68/  0.54
+       10      89.1/  90.4/  94.9      89.9/  91.6/  95.5      40.3/  41.0/  42.6      83.4/  84.5/  87.2      84.1/  85.1/  87.9     0.70/  0.57/  0.74
+      100      89.5/  91.1/  96.6      90.3/  92.1/  96.6      39.3/  41.4/  42.8      83.2/  84.8/  88.8      84.0/  85.4/  89.9     0.82/  0.54/  1.19
+     1000      89.6/  94.0/  98.7      90.4/  94.1/ 101.8      39.1/  43.6/  44.8      82.0/  88.0/  91.8      83.0/  88.7/  92.9     1.01/  0.63/  1.09
+    10000      92.0/  93.5/  99.8      91.5/  93.4/ 102.2      44.2/  44.8/  45.8      89.3/  91.0/  95.0      90.0/  91.4/  93.3     0.66/  0.36/ -1.63
+   100000      83.5/  89.9/  97.5      84.2/  92.6/ 102.8      41.4/  42.1/  43.6      82.1/  86.1/  92.2      82.5/  85.8/  92.4     0.47/ -0.30/  0.21
