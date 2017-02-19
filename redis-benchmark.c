@@ -435,8 +435,8 @@ static void showLatencyReport(void) {
     reqpersec = (float)config.requests_finished/((float)config.totlatency/1000);
     if (!config.quiet && !config.csv) {
         printf("====== %s ======\n", config.title);
-        printf("  %d requests completed in %.2f seconds\n", config.requests_finished,
-            (float)config.totlatency/1000);
+        printf("  %d requests completed in %.2f milliseconds\n", config.requests_finished,
+            (float)config.totlatency);
         printf("  %d parallel clients\n", config.numclients);
         printf("  %d bytes payload\n", config.datasize);
         printf("  keep alive: %d\n", config.keepalive);
