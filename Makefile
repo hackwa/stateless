@@ -1,5 +1,5 @@
 INC= -I hiredis/
-CFLAGS = -O3
+CFLAGS = -Ofast -march=native -flto
 
 all:
 	gcc $(CFLAGS) $(INC) -c helper.c -o helper.o
