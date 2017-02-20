@@ -1,12 +1,49 @@
 #include "clientdefs.h"
 
+void getCallback(redisClusterAsyncContext *acc, void *r, void *privdata)
+{
+    int count =  *(int*)privdata;
+    areply = (redisReply *)r;
+    accCounter++;
+    printf("Async reply: %s\n", areply->str);
+    if(accCounter >= count){
+        redisClusterAsyncDisconnect(acc);
+    }
+}
+
+void connectCallback(const redisAsyncContext *c, int status)
+{
+    if (status != REDIS_OK) {
+        printf("Error: %s\n", c->errstr);
+        return;
+    }
+    printf("Connected...\n");
+}
+
+void disconnectCallback(const redisAsyncContext *c, int status)
+{
+    if (status != REDIS_OK) {
+        printf("Error: %s\n", c->errstr);
+        return;
+    }
+
+    printf("\nDisconnected...\n");
+}
+
+
 client createClient(char *clusterid, char* unixsocket) 
 {
     int j;
     client c = malloc(sizeof(struct _client));
     if(clusterid != NULL)
+
+/*
+    Create multiple connection contexts to handle cluster and local
+    database.
+*/
     c->cluster_context = redisClusterConnect(clusterid,HIRCLUSTER_FLAG_NULL);
     c->local_context = redisConnectUnix(unixsocket);
+    c->acc = redisClusterAsyncConnect(clusterid,HIRCLUSTER_FLAG_NULL);
 
     if (c->cluster_context == NULL || c->cluster_context->err) {
         if (c->cluster_context) {
@@ -15,7 +52,7 @@ client createClient(char *clusterid, char* unixsocket)
         } else {
             printf("Cluster Connection error: can't allocate redis context\n");
         }
-//        exit(1);
+        exit(1);
     }
 
     if (c->local_context == NULL || c->local_context->err) {
@@ -27,6 +64,17 @@ client createClient(char *clusterid, char* unixsocket)
     }
     exit(1);
     }
+
+    if (c->acc->err)
+    {
+        printf("Error: %s\n", c->acc->errstr);
+        exit(1);
+    }
+
+    _ebase = event_base_new();
+    redisClusterLibeventAttach(c->acc,_ebase);
+    redisClusterAsyncSetConnectCallback(c->acc,connectCallback);
+    redisClusterAsyncSetDisconnectCallback(c->acc,disconnectCallback);
 
     printf("Successfully connectected to cluster and local databases\n");
     return c;
@@ -77,6 +125,21 @@ void clusterPipelineCmd(redisClusterContext *cc, char **cmdlist, int num)
     /* This writes the entire buffer to socket
        And waits for a single reply.*/
     redisClusterGetReply(cc,(void *)&creply);
+}
+
+/*
+    Asynch pipelined commands run one after another.
+*/
+void clusterAsyncCmd(redisClusterAsyncContext *acc, char **cmdlist, int * num)
+{
+    int i,status;
+    accCounter = 0;
+    for(i=0; i<*num; i++) {
+        status = redisClusterAsyncCommand(acc, getCallback, num, cmdlist[i]);
+        if(status != REDIS_OK) {
+            printf("error: %d %s\n", acc->err, acc->errstr);
+        }
+    }
 }
 
 /*

@@ -13,5 +13,10 @@ int main(int argc, char **argv)
 	clusterCmd(cli->cluster_context,"set cat meow");
 	clusterCmd(cli->cluster_context,"get cat");
 	printf("GET CAT %s\n", creply->str);
+	char *cmdlist[] = {"SET hal wa","GET hal"};
+	int arraylen = 2;
+	clusterAsyncCmd(cli->acc,cmdlist,&arraylen);
+//	usleep(10000000);
+	event_base_dispatch(_ebase);
 	return 0;
 }

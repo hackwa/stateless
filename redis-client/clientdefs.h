@@ -17,6 +17,7 @@
 
 redisReply *reply;
 redisReply *creply;
+redisReply *areply;
 
 typedef struct _client {
     redisClusterContext *cluster_context;
@@ -42,6 +43,20 @@ void simplePipeline(redisContext *c , char **cmdlist, int num);
 
 void clusterCmd(redisClusterContext *cc, char* cmd);
 void clusterPipeline(redisClusterContext *cc , char **cmdlist, int num);
+void clusterAsyncCmd(redisClusterAsyncContext *acc, char **cmdlist, int *num);
+
+void getCallback(redisClusterAsyncContext *acc, void *r, void *privdata);
+void connectCallback(const redisAsyncContext *c, int status);
+void disconnectCallback(const redisAsyncContext *c, int status);
+
 
 char local_ipaddr[NI_MAXHOST];
 void setIfAddr();
+
+struct event_base *_ebase;
+int accCounter;
+typedef struct calldata
+{
+    redisClusterAsyncContext *acc;
+    int count;
+}calldata;
