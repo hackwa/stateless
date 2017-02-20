@@ -7,11 +7,12 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <ifaddrs.h>
+#include <adapters/libevent.h>
 
-#include <hiredis.h>
+//#include <hiredis.h>
 #include "hircluster.h"
 
-#define CHECK(X) if ( !X || X->type == REDIS_REPLY_ERROR ) { printf("Error\n"); exit(-1); }
+#define CHECK(X) if ( !X || X->type == REDIS_REPLY_ERROR ) { printf("Error in reply \n"); exit(-1); }
 #define LOCAL_IFACE "enp2s0"
 
 redisReply *reply;
@@ -20,6 +21,7 @@ redisReply *creply;
 typedef struct _client {
     redisClusterContext *cluster_context;
     redisContext *local_context;
+    redisClusterAsyncContext *acc;
     sds obuf;
     char **randptr;         /* Pointers to :rand: strings inside the command buf */
     size_t randlen;         /* Number of pointers in client->randptr */
