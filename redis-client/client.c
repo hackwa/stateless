@@ -4,7 +4,7 @@ client createClient(char *clusterid, char* unixsocket)
 {
     int j;
     client c = malloc(sizeof(struct _client));
-
+    if(clusterid != NULL)
     c->cluster_context = redisClusterConnect(clusterid,HIRCLUSTER_FLAG_NULL);
     c->local_context = redisConnectUnix(unixsocket);
 
@@ -15,7 +15,7 @@ client createClient(char *clusterid, char* unixsocket)
         } else {
             printf("Cluster Connection error: can't allocate redis context\n");
         }
-        exit(1);
+//        exit(1);
     }
 
     if (c->local_context == NULL || c->local_context->err) {
@@ -32,6 +32,11 @@ client createClient(char *clusterid, char* unixsocket)
     return c;
 }
 
+/*
+    The invoking function is responsible for keeping track of
+    reply and creply objects.
+*/
+
 void simpleCmd(redisContext *c, char* cmd)
 {
     if(reply != NULL)
@@ -43,12 +48,33 @@ void simpleCmd(redisContext *c, char* cmd)
 void simplePipeline(redisContext *c , char **cmdlist, int num)
 {
     if(reply != NULL)
-    freeReplyObject(reply);
+        freeReplyObject(reply);
     int i;
     for (i=0; i<num; i++){
         redisAppendCommand(c,cmdlist[i]);
     }
     /* This writes the entire buffer to socket
-       And waits for a single reply.*/ 
+       And waits for a single reply.*/
     redisGetReply(c,(void *)&reply);
+}
+
+void clusterCmd(redisClusterContext *cc, char* cmd)
+{
+    if(creply != NULL)
+        freeReplyObject(creply);
+    creply = redisClusterCommand(cc,cmd);
+    CHECK(creply);
+}
+
+void clusterPipelineCmd(redisClusterContext *cc, char **cmdlist, int num)
+{
+    if(creply != NULL)
+        freeReplyObject(reply);
+    int i;
+    for (i=0; i<num; i++){
+        redisClusterAppendCommand(cc,cmdlist[i]);
+    }
+    /* This writes the entire buffer to socket
+       And waits for a single reply.*/
+    redisClusterGetReply(c,(void *)&reply);
 }

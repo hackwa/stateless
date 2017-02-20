@@ -11,6 +11,7 @@
 #define CHECK(X) if ( !X || X->type == REDIS_REPLY_ERROR ) { printf("Error\n"); exit(-1); }
 
 redisReply *reply;
+redisReply *creply;
 
 typedef struct _client {
     redisClusterContext *cluster_context;
@@ -32,3 +33,6 @@ typedef struct _client {
 client createClient(char *clusterid, char* unixsocket);
 void simpleCmd(redisContext *c, char* cmd);
 void simplePipeline(redisContext *c , char **cmdlist, int num);
+
+void clusterCmd(redisClusterContext *cc, char* cmd);
+void clusterPipeline(redisClusterContext *cc , char **cmdlist, int num);
