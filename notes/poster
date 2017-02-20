@@ -1,0 +1,16 @@
+top left
+Benefits of diaggregation
+top right
+statelessnf 
+middle left
+performance or goal - integrate to reduce latency
+<picture>
+middle right
+challenge - data placement
+how ramcloud does it
+proposed scheme with one graph
+bottom 
+graph with equation
+issues:
+expiry solved
+farm paper read -
