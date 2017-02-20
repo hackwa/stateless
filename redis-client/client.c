@@ -42,7 +42,7 @@ void simpleCmd(redisContext *c, char* cmd)
     if(reply != NULL)
         freeReplyObject(reply);
     reply = redisCommand(c,cmd);
-    CHECK(reply);    
+    CHECK(reply);
 }
 
 void simplePipeline(redisContext *c , char **cmdlist, int num)
@@ -69,12 +69,47 @@ void clusterCmd(redisClusterContext *cc, char* cmd)
 void clusterPipelineCmd(redisClusterContext *cc, char **cmdlist, int num)
 {
     if(creply != NULL)
-        freeReplyObject(reply);
+        freeReplyObject(creply);
     int i;
     for (i=0; i<num; i++){
         redisClusterAppendCommand(cc,cmdlist[i]);
     }
     /* This writes the entire buffer to socket
        And waits for a single reply.*/
-    redisClusterGetReply(c,(void *)&reply);
+    redisClusterGetReply(cc,(void *)&creply);
+}
+
+/*
+    We need IP Address to be able to store it inside cluster
+*/
+
+void setIfAddr()
+{
+    struct ifaddrs *ifaddr, *ifa;
+    int family, s;
+    char host[NI_MAXHOST];
+
+    if (getifaddrs(&ifaddr) == -1) {
+        perror("getifaddrs");
+        exit(EXIT_FAILURE);
+    }
+
+
+    for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next) {
+        if (ifa->ifa_addr == NULL)
+            continue;
+
+        s=getnameinfo(ifa->ifa_addr,sizeof(struct sockaddr_in),host,
+            NI_MAXHOST, NULL, 0, NI_NUMERICHOST);
+
+        if((strcmp(ifa->ifa_name,LOCAL_IFACE)==0)&&(ifa->ifa_addr->sa_family==AF_INET)) {
+            if (s != 0) {
+                printf("getnameinfo() failed: %s\n", gai_strerror(s));
+                exit(1);
+            }
+            // Assume safe
+            strcpy(local_ipaddr,host);
+        }
+    }
+    freeifaddrs(ifaddr);
 }

@@ -2,13 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
-#include <syslog.h>
+#include <sys/socket.h>
 #include <unistd.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <ifaddrs.h>
 
 #include <hiredis.h>
 #include "hircluster.h"
 
 #define CHECK(X) if ( !X || X->type == REDIS_REPLY_ERROR ) { printf("Error\n"); exit(-1); }
+#define LOCAL_IFACE "enp2s0"
 
 redisReply *reply;
 redisReply *creply;
@@ -36,3 +40,6 @@ void simplePipeline(redisContext *c , char **cmdlist, int num);
 
 void clusterCmd(redisClusterContext *cc, char* cmd);
 void clusterPipeline(redisClusterContext *cc , char **cmdlist, int num);
+
+char local_ipaddr[NI_MAXHOST];
+void setIfAddr();
