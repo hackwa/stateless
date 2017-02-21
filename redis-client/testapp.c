@@ -10,6 +10,8 @@ int main(int argc, char **argv)
 	cli = createClient(clusterid,unixsocket);
 	printf("\tInterface : <%s>\n",LOCAL_IFACE);
     printf("\t  Address : <%s>\n", local_ipaddr);
+    simpleCmd(cli->local_context,"set cat meow");
+	simpleCmd(cli->local_context,"get cat");
 	clusterCmd(cli->cluster_context,"set cat meow");
 	clusterCmd(cli->cluster_context,"get cat");
 	printf("GET CAT %s\n", creply->str);

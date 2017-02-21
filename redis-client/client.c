@@ -88,7 +88,10 @@ void simpleCmd(redisContext *c, char* cmd)
 {
     if(reply != NULL)
         freeReplyObject(reply);
+    gettimeofday(&tv1, NULL);
     reply = redisCommand(c,cmd);
+    gettimeofday(&tv2, NULL);
+    printf("time taken to execute on unix: %d\n",(int) (tv2.tv_usec - tv1.tv_usec));
     CHECK(reply);
 }
 
