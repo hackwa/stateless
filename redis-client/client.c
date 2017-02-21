@@ -30,7 +30,6 @@ void disconnectCallback(const redisAsyncContext *c, int status)
     printf("\nDisconnected...\n");
 }
 
-
 client createClient(char *clusterid, char* unixsocket) 
 {
     int j;
@@ -110,7 +109,10 @@ void clusterCmd(redisClusterContext *cc, char* cmd)
 {
     if(creply != NULL)
         freeReplyObject(creply);
+    gettimeofday(&tv1, NULL);
     creply = redisClusterCommand(cc,cmd);
+    gettimeofday(&tv2, NULL);
+    printf("time taken to execute on cluster: %d\n",(int) (tv2.tv_usec - tv1.tv_usec));
     CHECK(creply);
 }
 

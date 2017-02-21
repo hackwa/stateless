@@ -60,3 +60,5 @@ typedef struct calldata
     redisClusterAsyncContext *acc;
     int count;
 }calldata;
+
+struct timeval  tv1, tv2;
