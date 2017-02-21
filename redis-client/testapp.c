@@ -8,10 +8,16 @@ int main(int argc, char **argv)
 	printf("Unix socket at %s\n",unixsocket);
 	static client cli; //
 	cli = createClient(clusterid,unixsocket);
+
 	printf("\tInterface : <%s>\n",LOCAL_IFACE);
     printf("\t  Address : <%s>\n", local_ipaddr);
-    simpleCmd(cli->local_context,"set cat meow");
-	simpleCmd(cli->local_context,"get cat");
+
+    bench_local(cli->local_context,"set cat meow","SET");
+	bench_local(cli->local_context,"get cat","GET");
+
+	bench_cluster(cli->cluster_context,"set cat meow","SET");
+	bench_cluster(cli->cluster_context,"get cat","GET");
+
 	clusterCmd(cli->cluster_context,"set cat meow");
 	clusterCmd(cli->cluster_context,"get cat");
 	printf("GET CAT %s\n", creply->str);

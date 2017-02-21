@@ -10,7 +10,8 @@
 #include <adapters/libevent.h>
 
 //#include <hiredis.h>
-#include "hircluster.h"
+
+#include "helper.h"
 
 #define CHECK(X) if ( !X || X->type == REDIS_REPLY_ERROR ) { printf("Error in reply \n"); exit(-1); }
 #define LOCAL_IFACE "enp2s0"
