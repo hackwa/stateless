@@ -14,3 +14,36 @@ graph with equation
 issues:
 expiry solved
 farm paper read -
+
+Q: What makes this design consistent?
+A: This is because of how these network devices work
+	and their data access patterns.
+
+Most of the network devices follow this pattern of
+data access:
+
+If SYN:
+	write(init_state) // Always local
+ELSE:
+	read(state) // May go out to cluster
+	do_processing
+	update(new_state) // Optional and always preceded by a read and is asynchronous
+	set timer // Asynchronous
+
+
+Different Operations Possible:
+
+Overwrite without reading - This occurs when multiple processes are trying to write 
+	some common information to the data store. This can lead to incoherency as
+	everyone will only update their local databases and thus multiple copies of
+	data may exist. There is no need to accommodate for this scenario in our algorithm 
+	as this does not occur in any network functions. If it does then we change it 
+	to follow read/update pattern.
+
+Write - Writes always happen locally.
+
+Update - This may happen locally or remotely. This is always preceded by 'read' operation
+	The connection state is passed on from 'read' to 'update' operation.
+
+Read - Reads are always tried locally and could happen remotely at the same time using Callbacks.
+	Some state needs to be preserved after a read if it happened remotely.

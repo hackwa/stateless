@@ -12,6 +12,8 @@ int main(int argc, char **argv)
 	printf("\tInterface : <%s>\n",LOCAL_IFACE);
     printf("\t  Address : <%s>\n", local_ipaddr);
 
+    simpleCmd(cli->local_context,"GET lol");
+/*
     bench_local(cli->local_context,"set cat meow","SET");
 	bench_local(cli->local_context,"get cat","GET");
 
@@ -20,7 +22,8 @@ int main(int argc, char **argv)
 
 	clusterCmd(cli->cluster_context,"set cat meow");
 	clusterCmd(cli->cluster_context,"get cat");
-	printf("GET CAT %s\n", creply->str);
+*/
+	printf("GET lol %s\n", creply->str);
 	char *cmdlist[] = {"SET hal wa","GET hal"};
 	int arraylen = 2;
 	clusterAsyncCmd(cli->acc,cmdlist,&arraylen);
