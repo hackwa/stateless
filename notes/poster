@@ -32,6 +32,8 @@ ELSE:
 
 
 CAS operation implemented but adds about 12us processing overhead for each call.
+Could add more complex logic in cas to deal with non-existent keys but that slows
+down the whole thing.
 
 Different Operations Possible:
 
