@@ -52,6 +52,13 @@ Update - This may happen locally or remotely. This is always preceded by 'read' 
 Read - Reads are always tried locally and could happen remotely at the same time using Callbacks.
 	Some state needs to be preserved after a read if it happened remotely.
 
+FLow Characteristics - 
+http://www.msr-waypoint.com/en-us/UM/people/srikanth/data/imc09_dcTraffic.pdf
+80 percent of flows last less than 10 s and only 0.1 remain after 200s.
+Which means that if we have 5 Network Function servers and 1 fails, 
+initially the effective colocation will be 80 percent which will increase to
+96 percent in next 10 seconds.
+
 
 <top left>
 Benefits of Disaggregation:
