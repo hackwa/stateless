@@ -31,6 +31,8 @@ ELSE:
 	set timer // Asynchronous
 
 
+CAS operation implemented but adds about 12us processing overhead for each call.
+
 Different Operations Possible:
 
 Overwrite without reading - This occurs when multiple processes are trying to write 
@@ -47,3 +49,45 @@ Update - This may happen locally or remotely. This is always preceded by 'read' 
 
 Read - Reads are always tried locally and could happen remotely at the same time using Callbacks.
 	Some state needs to be preserved after a read if it happened remotely.
+
+
+<top left>
+Benefits of Disaggregation:
+
+Dynamic network state persists across failures. 
+State instantly available to instances upon scaling in or out.
+Built-in support for asymmetric and multi-path routing.
+Low packet processing latency.
+
+<top right>
+<This one will be bigger>
+<pic of stateless architecture>
+Notes:
+The data store provides low latency access to dynamic state to all network functions(NFs).
+The network functions can be commodity servers or VMs.
+The controller acts as an an orchestration component to handle the dynamics of the NF infrastructure.
+
+<Middle Left>
+Goal: Optimized Data store Node placement.
+Keeping frequently accessed data closer to NFs to reduce latency.
+Maintaining logical disaggregation of data without falling back on caching (which has problems coherency etc).
+Access to data goes to the nodes actually storing that data (which may be replicated among a few nodes, and coherency needs to be maintained between that small subset of nodes). This makes this more scalable.
+(Picture of Integrated)
+
+<Middle Right>
+Challenge: Data Placement
+Many data stores (eg RAMCloud, redis) distribute data across nodes using hash slot based sharding.
+They distribute hash slots among nodes and compute key hash to discover which slot the key belongs to.
+Scaling just involves movement of hash slots among the nodes.
+Very efficient but does not allow us to control data placement.
+Need a way to store state so that every node has fast access any object while still benefiting from data colocation.
+
+<Bottom left>
+Proposed Approach : Directory Data Store
+Every NF node creates and stores state on the local instance of data store which is replicated for high availability.
+Hash Slots can act like directories which can store pointers to actual data node(s) which contains the
+relevant data.
+The directory entries are cached to speed up lookups.
+When scaling happens, the data can still be accessed through pointers.
+
+<Bottom right>

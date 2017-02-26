@@ -22,9 +22,10 @@ int main(int argc, char **argv) {
     bench_ping(c);
     bench_set(c);
     bench_get(c);
+    bench_cas(c);
 
     printf ("..........Begin Testing on Unix...........\n");
-    char *socket = "/run/redis.sock";
+    char *socket = "/var/run/redis/redis.sock";
     c1 = redisConnectUnix(socket);
     if (c1 == NULL || c1->err) {
         if (c1) {
@@ -39,7 +40,8 @@ int main(int argc, char **argv) {
     bench_ping(c1);
     bench_set(c1);
     bench_get(c1);
-
+    bench_cas(c);
+/*
     printf ("..........Begin Testing on Remote...........\n");
     char *rhostname = "172.20.76.42";
     int rport = 6379;
@@ -57,7 +59,7 @@ int main(int argc, char **argv) {
     bench_ping(c2);
     bench_set(c2);
     bench_get(c2);
-
+*/
     return 0;
 }
 

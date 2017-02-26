@@ -79,6 +79,8 @@ client createClient(char *clusterid, char* unixsocket)
     return c;
 }
 
+coloCmd
+
 /*
     The invoking function is responsible for keeping track of
     reply and creply objects.

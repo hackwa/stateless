@@ -24,6 +24,13 @@ void bench_ping(redisContext *c)
     bench_utils_pipelined(c,cmd);
 }
 
+void bench_cas(redisContext *c)
+{
+    char *cmd = "EVALSHA e8d8dee414b70a26bd55239c1c59d9fcb13fef29 1 1 6 6";
+    bench_utils(c,cmd);
+    bench_utils_pipelined(c,cmd);
+}
+
 void bench_utils(redisContext *c, char* command)
 {
     long microseconds=0;

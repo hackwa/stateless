@@ -12,4 +12,5 @@ redisReply *reply;
 void bench_set(redisContext *c);
 void bench_get(redisContext *c);
 void bench_ping(redisContext *c);
+void bench_cas(redisContext *c);
 void tcp_connect_helper(redisContext *c, const char* hostname, int port);
