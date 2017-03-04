@@ -3,10 +3,19 @@
 import sys
 import os
 import hashlib
+import requests
+import flask
+from flask import Flask
+from flask import request
+from flask import jsonify
 
-num_elements = 1
-replication_factor = 3
+app = Flask(__name__)
+
+num_elements = 0
+replication_factor = 2
 repl_slot = [None] * replication_factor
+hostlist = []
+status = {}
 
 # Assign a new_host to replication slots
 def assign_slot(new_host,host_index):
@@ -32,6 +41,51 @@ def assign_slot(new_host,host_index):
     for i in range(0,replication_factor):
         print(repl_slot[i])
 
+def send_rpc(ip,request):
+    None 
+
+def reshard_slots():
+    global hostlist
+    global repl_slot
+    for i in range(0,num_elements):
+        assign_slot(hostlist[i],i)
+        status[hostlist[i]] = repl_slot[:]
+        repl_slot = [None] * replication_factor
+
+@app.route('/')
+def index():
+    return "Hello, World!"
+
+@app.route('/join',methods=['POST'])
+def add_server():
+    global num_elements
+    global repl_slot
+    global status
+    print(request.json)
+    if not request.json or not 'hostip' in request.json:
+        flask.abort(400)
+    ip = request.json['hostip']
+    print("Discovered new server with IP",ip)
+    hostlist.append(ip)
+    num_elements += 1
+    if(num_elements > replication_factor):
+        print("num hosts greater than repl factor..resharding")
+        reshard_slots()
+    else:
+        assign_slot(ip,num_elements-1)
+        print("Assigning the server to slots:",repl_slot)
+        status[ip] = repl_slot[:]
+        repl_slot = [None] * replication_factor
+    return "Server added Successfully!"
+
+@app.route('/info',methods=['GET'])
+def return_status():
+    global status
+    return jsonify(status),200
+
+if __name__ == '__main__':
+        app.run(debug=True)
+"""
 assign_slot("stateless1",0)
 num_elements = 2
 assign_slot("stateless2",1)
@@ -47,3 +101,4 @@ assign_slot("stateless2",1)
 assign_slot("stateless3",2)
 assign_slot("stateless4",3)
 assign_slot("stateless4",4)
+"""
